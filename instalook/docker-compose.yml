@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  web:
+
+    build: ./docker
+
+    container_name: instalook_web
+
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./web:/var/www/html
+
+    depends_on:
+      - mysql
+
+  mysql:
+
+    image: mariadb:10.11
+
+    container_name: instalook_mysql
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: root
+
+      MYSQL_DATABASE: instalook
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+
+  mysql_data:
